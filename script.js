@@ -27,12 +27,12 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
       alert('Obrigado! Salvamos seu contato. Redirecionando para o WhatsApp...');
       
       // Configurações do WhatsApp
-      const seuNumero = "5500000000000"; // ADICIONE SEU NÚMERO AQUI (com DDD e sem espaços)
+      const seuNumero = "351910169533"; 
       const mensagem = `Olá, meu nome é ${formData.nome}. Tenho interesse em ${formData.servico}. Vi seu site Simplygesso.`;
       const wpUrl = `https://wa.me/${seuNumero}?text=${encodeURIComponent(mensagem)}`;
       
       e.target.reset();
-      window.location.href = wpUrl;
+      window.open(wpUrl, '_blank');
     } else {
       alert('Ops! Ocorreu um erro. Tente novamente mais tarde.');
     }
