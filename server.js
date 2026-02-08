@@ -58,13 +58,15 @@ app.use(async (req, res, next) => {
           if (ownerPhone && apiUrl && apiKey) {
               const formattedDate = new Date(lastVisit).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
               
-              // Simplificação do aparelho (Celular ou Desktop)
               const isMobile = /Mobile|Android|iPhone/i.test(userAgent);
               const aparelho = isMobile ? '📱 Celular' : '💻 Desktop';
 
+              const cleanUrl = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
               const text = `👀 *Nova Visita Simplygesso!*\n\n🌐 *IP:* ${ip}\n🔢 *Total de Visitas:* ${currentVisits}\n📅 *Data/Hora:* ${formattedDate}\n🖥️ *Aparelho:* ${aparelho}\n🔗 *Origem:* ${referer || 'Direto'}`;
               
-              fetch(`${apiUrl}/message/sendText/${instance}`, {
+              console.log(`📡 [API Visitante] Notificando: ${ip} para ${ownerPhone}`);
+
+              fetch(`${cleanUrl}/message/sendText/${instance}`, {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json',
@@ -74,7 +76,9 @@ app.use(async (req, res, next) => {
                       number: ownerPhone,
                       text: text
                   })
-              }).catch(e => console.error('Erro assíncrono WhatsApp Visitante:', e.message));
+              }).then(r => {
+                if (!r.ok) r.text().then(t => console.error(`❌ Erro API Visitante (${r.status}):`, t));
+              }).catch(e => console.error('❌ Erro de Conexão WhatsApp Visitante:', e.message));
           }
         } catch (apiError) {
             console.error('Erro ao preparar zap visitante:', apiError.message);
@@ -164,8 +168,9 @@ app.post('/api/leads', async (req, res) => {
         const instance = process.env.EVOLUTION_INSTANCE || 'main';
 
         if (ownerPhone && apiUrl && apiKey) {
-            console.log(`📤 [OFFLINE] Enviando WhatsApp para ${ownerPhone}...`);
-            const response = await fetch(`${apiUrl}/message/sendText/${instance}`, {
+            const cleanUrl = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
+            console.log(`📤 [OFFLINE] Enviando WhatsApp para ${ownerPhone} via ${cleanUrl}...`);
+            const response = await fetch(`${cleanUrl}/message/sendText/${instance}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -178,14 +183,13 @@ app.post('/api/leads', async (req, res) => {
             });
 
             if (response.ok) {
-                console.log('✅ Notificação WhatsApp enviada com sucesso!');
+                console.log('✅ Notificação WhatsApp (Lead Offline) enviada!');
             } else {
                 const errText = await response.text();
-                // Tenta fazer parse do erro para não logar JSON stringificado feio, se der
-                console.error('❌ Erro ao enviar WhatsApp (API):', errText);
+                console.error(`❌ Erro API Lead Offline (${response.status}):`, errText);
             }
         } else {
-            console.warn('⚠️ Configuração do WhatsApp incompleta no .env. Notificação não enviada.');
+            console.warn('⚠️ [OFFLINE] Configuração do WhatsApp incompleta.');
         }
     } catch (apiError) {
         console.error('❌ Erro na requisição da API (Fetch):', apiError);
@@ -215,8 +219,9 @@ app.post('/api/leads', async (req, res) => {
         const instance = process.env.EVOLUTION_INSTANCE || 'main';
 
         if (ownerPhone && apiUrl && apiKey) {
-            console.log(`📤 Enviando WhatsApp para ${ownerPhone}...`);
-            const response = await fetch(`${apiUrl}/message/sendText/${instance}`, {
+            const cleanUrl = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
+            console.log(`📤 Enviando WhatsApp para ${ownerPhone} via ${cleanUrl}...`);
+            const response = await fetch(`${cleanUrl}/message/sendText/${instance}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -232,10 +237,10 @@ app.post('/api/leads', async (req, res) => {
                 console.log('✅ Notificação WhatsApp enviada com sucesso!');
             } else {
                 const errText = await response.text();
-                console.error('❌ Erro ao enviar WhatsApp:', errText);
+                console.error(`❌ Erro API WhatsApp (${response.status}):`, errText);
             }
         } else {
-            console.warn('⚠️ Configuração do WhatsApp incompleta no .env');
+            console.warn('⚠️ Configuração do WhatsApp incompleta no Coolify/Env');
         }
       } catch (apiError) {
           console.error('❌ Erro na requisição da API:', apiError);
