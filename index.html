@@ -10,7 +10,7 @@
             name="description"
             content="Transforme sua casa com a Simplygesso Construções. Especialistas em drywall, sancas iluminadas, isolamento térmico e paredes 3D."
         >
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="app.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link
@@ -26,14 +26,19 @@
         <nav id="navbar">
             <div class="container flex justify-between align-center">
                 <div class="logo">Simplygesso</div>
+                
+                <button class="mobile-menu-btn" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
                 <div class="nav-links flex align-center" style="gap: 2rem">
                     <a
                         href="#servicos"
-                        style="color: white; text-decoration: none; font-size: 0.9rem"
+                        class="nav-link"
                     >Serviços</a>
                     <a
                         href="#portfolio"
-                        style="color: white; text-decoration: none; font-size: 0.9rem"
+                        class="nav-link"
                     >Portfólio</a>
                     <a
                         href="#contato"
@@ -44,18 +49,20 @@
             </div>
         </nav>
 
-        <header class="hero">
-            <div class="container">
-                <div
-                    class="flex align-center justify-between"
-                    style="gap: 4rem"
-                >
-                    <div class="hero-content">
-                        <h1>Mão de Obra de Luxo para sua Construção</h1>
-                        <p>
-                            Especialistas em Drywall, Iluminação embutida e
-                            Acabamentos Finos que elevam o padrão do seu imóvel.
-                        </p>
+        <header class="hero-section">
+        <div class="led-strip led-strip-vertical"></div> <!-- Vertical LED -->
+        <div class="container">
+            <div
+                class="flex align-center justify-between"
+                style="gap: 4rem"
+            >
+                <div class="hero-content">
+                    <h1>Mão de Obra de Luxo para sua Construção</h1>
+                    <div class="led-strip led-strip-horizontal"></div> <!-- Horizontal LED under title -->
+                    <p>
+                        Especialistas em Drywall, Iluminação embutida e
+                        Acabamentos Finos que elevam o padrão do seu imóvel.
+                    </p>
                         <div
                             class="trust-badges flex"
                             style="gap: 2rem; margin-top: 2rem"
@@ -134,7 +141,7 @@
                 </div>
 
                 <div class="services-grid">
-                    <div class="service-card glass">
+                    <div class="service-card glass" style="background-image: url('https://images.unsplash.com/photo-1595846519845-68e298c2edd8?auto=format&fit=crop&q=80&w=800')">
                         <div class="service-icon">🏗️</div>
                         <h3>Drywall & Sancas</h3>
                         <p>
@@ -142,7 +149,7 @@
                             ambientes modernos.
                         </p>
                     </div>
-                    <div class="service-card glass">
+                    <div class="service-card glass" style="background-image: url('fotos/iluminacaoled.png')">
                         <div class="service-icon">💡</div>
                         <h3>Iluminação LED</h3>
                         <p>
@@ -150,7 +157,7 @@
                             atmosfera do seu lar.
                         </p>
                     </div>
-                    <div class="service-card glass">
+                    <div class="service-card glass" style="background-image: url('fotos/technitoit-isolamento-2-1024x683.webp')">
                         <div class="service-icon">🧤</div>
                         <h3>Isolamento Térmico</h3>
                         <p>
@@ -158,7 +165,7 @@
                             materiais de alta performance.
                         </p>
                     </div>
-                    <div class="service-card glass">
+                    <div class="service-card glass" style="background-image: url('fotos/parede3d.jpg')">
                         <div class="service-icon">✨</div>
                         <h3>Paredes 3D</h3>
                         <p>
@@ -186,30 +193,29 @@
                 </div>
 
                 <div class="gallery-grid">
-                    <!-- Aqui usaremos referências às imagens enviadas -->
                     <div class="gallery-item glass">
-                        <img
-                            src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800"
-                            alt="Drywall Work"
-                        >
+                        <img src="fotos/WhatsApp Image 2026-02-08 at 01.08.37.jpeg" alt="Obra Recente 1" loading="lazy">
                     </div>
                     <div class="gallery-item glass">
-                        <img
-                            src="https://images.unsplash.com/photo-1505691938895-1758d7eaa511?auto=format&fit=crop&q=80&w=800"
-                            alt="Lighting Work"
-                        >
+                        <img src="fotos/WhatsApp Image 2026-02-08 at 01.08.37 (1).jpeg" alt="Obra Recente 2" loading="lazy">
                     </div>
                     <div class="gallery-item glass">
-                        <img
-                            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
-                            alt="Interior Work"
-                        >
+                        <img src="fotos/WhatsApp Image 2026-02-08 at 01.08.37 (2).jpeg" alt="Obra Recente 3" loading="lazy">
                     </div>
                     <div class="gallery-item glass">
-                        <img
-                            src="https://images.unsplash.com/photo-1600607687940-4e524cb35a36?auto=format&fit=crop&q=80&w=800"
-                            alt="3D Wall Work"
-                        >
+                        <img src="fotos/WhatsApp Image 2026-02-08 at 01.08.37 (3).jpeg" alt="Obra Recente 4" loading="lazy">
+                    </div>
+                    <div class="gallery-item glass">
+                        <img src="fotos/WhatsApp Image 2026-02-08 at 01.08.38.jpeg" alt="Obra Recente 5" loading="lazy">
+                    </div>
+                    <div class="gallery-item glass">
+                        <img src="fotos/WhatsApp Image 2026-02-08 at 01.08.38 (1).jpeg" alt="Obra Recente 6" loading="lazy">
+                    </div>
+                    <div class="gallery-item glass">
+                        <img src="fotos/WhatsApp Image 2026-02-08 at 01.08.38 (2).jpeg" alt="Obra Recente 7" loading="lazy">
+                    </div>
+                    <div class="gallery-item glass">
+                        <img src="fotos/WhatsApp Image 2026-02-08 at 01.08.38 (3).jpeg" alt="Obra Recente 8" loading="lazy">
                     </div>
                 </div>
             </div>
